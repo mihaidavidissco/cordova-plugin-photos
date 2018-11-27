@@ -424,8 +424,8 @@ NSString* const E_PHOTO_BUSY = @"Fetching of photo assets is in progress";
         type = PHAssetCollectionTypeSmartAlbum;
         subtype = PHAssetCollectionSubtypeAny;
     } else if ([P_C_MODE_ALBUMS isEqualToString:mode]) {
-        type = PHAssetCollectionTypeAlbum;
-        subtype = PHAssetCollectionSubtypeAny;
+        type = PHAssetCollectionTypeSmartAlbum;
+        subtype = PHAssetCollectionSubtypeSmartAlbumUserLibrary;
     } else if ([P_C_MODE_MOMENTS isEqualToString:mode]) {
         type = PHAssetCollectionTypeMoment;
         subtype = PHAssetCollectionSubtypeAny;
