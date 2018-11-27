@@ -83,7 +83,9 @@ NSString* const E_PHOTO_BUSY = @"Fetching of photo assets is in progress";
                  @"PNG": @"image/png",
                  @"GIF": @"image/gif",
                  @"TIF": @"image/tiff",
-                 @"TIFF": @"image/tiff"};
+                 @"TIFF": @"image/tiff",
+                 @"HEIC": @"image/heic",
+                 @"HEIF": @"image/heif"};
 
     _extRegex = [NSRegularExpression
                  regularExpressionWithPattern:T_EXT_PATTERN
