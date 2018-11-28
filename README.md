@@ -1,3 +1,6 @@
+* The purpose of this fork is to support High Efficiency Image File Format (HEIF) and get all the photos using the ALBUMS options. This will return a single album on ios called All photos, and multiple albums for android, because we only need the photos. To get all albums on ios the PHAssetCollectionSubtype must be changed for the ALBUMS option. Also, the ROLL option will return photos in camera for android, but for ios the behaviour is the same as using ALBUMS.*
+
+
 Cordova Photos Plugin
 =====================
 
