@@ -314,26 +314,22 @@ NSString* const E_PHOTO_BUSY = @"Fetching of photo assets is in progress";
         [[PHImageManager defaultManager]
          requestImageDataForAsset:asset
          options:reqOptions
-          resultHandler:^(UIImage* _Nullable result, NSDictionary* _Nullable info) {
+         resultHandler:^(NSData* _Nullable imageData,
+                         NSString* _Nullable dataUTI,
+                         UIImageOrientation orientation,
+                         NSDictionary* _Nullable info) {
              NSError* error = info[PHImageErrorKey];
              if (![weakSelf isNull:error]) {
                  [weakSelf failure:command withMessage:error.localizedDescription];
                  return;
              }
-             if ([weakSelf isNull:result]) {
+             if ([weakSelf isNull:imageData]) {
                  [weakSelf failure:command withMessage:E_PHOTO_NO_DATA];
                  return;
              }
-             UIGraphicsBeginImageContext(result.size);
-             [result drawInRect:CGRectMake(0, 0, result.size.width, result.size.height)];
-             UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
-             UIGraphicsEndImageContext();
-             NSData* data = UIImageJPEGRepresentation(image, 100);
-             if ([weakSelf isNull:data]) {
-                 [weakSelf failure:command withMessage:E_PHOTO_NO_DATA];
-                 return;
-             }
-             [weakSelf success:command withData:data];
+            UIImage* uiImage = UIImage(data:imageData, scale:1.0);
+            NSData* jpegImageData = UIImageJPEGRepresentation(uiImage, 100);
+            [weakSelf success:command withData:jpegImageData];
          }];
     }];
 }
