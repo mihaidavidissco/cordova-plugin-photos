@@ -327,7 +327,7 @@ NSString* const E_PHOTO_BUSY = @"Fetching of photo assets is in progress";
                  [weakSelf failure:command withMessage:E_PHOTO_NO_DATA];
                  return;
              }
-            UIImage* uiImage = UIImage(data:imageData, scale:1.0);
+            UIImage* uiImage = [UIImage imageWithData:imageData];
             NSData* jpegImageData = UIImageJPEGRepresentation(uiImage, 100);
             [weakSelf success:command withData:jpegImageData];
          }];
