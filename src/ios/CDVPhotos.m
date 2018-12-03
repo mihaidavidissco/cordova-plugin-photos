@@ -328,7 +328,11 @@ NSString* const E_PHOTO_BUSY = @"Fetching of photo assets is in progress";
                  return;
              }
             UIImage* uiImage = [UIImage imageWithData:imageData];
-            NSData* jpegImageData = UIImageJPEGRepresentation(uiImage, 100);
+            UIGraphicsBeginImageContext(uiImage.size);
+            [result drawInRect:CGRectMake(0, 0, uiImage.size.width, uiImage.size.height)];
+            UIImage* img = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+            NSData* jpegImageData = UIImageJPEGRepresentation(img, 100);
             [weakSelf success:command withData:jpegImageData];
          }];
     }];
