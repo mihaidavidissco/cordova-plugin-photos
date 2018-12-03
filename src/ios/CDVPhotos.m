@@ -327,12 +327,8 @@ NSString* const E_PHOTO_BUSY = @"Fetching of photo assets is in progress";
                  [weakSelf failure:command withMessage:E_PHOTO_NO_DATA];
                  return;
              }
-            UIImage* uiImage = [UIImage imageWithData:imageData];
-            UIGraphicsBeginImageContext(uiImage.size);
-            [result drawInRect:CGRectMake(0, 0, uiImage.size.width, uiImage.size.height)];
-            UIImage* img = UIGraphicsGetImageFromCurrentImageContext();
-            UIGraphicsEndImageContext();
-            NSData* jpegImageData = UIImageJPEGRepresentation(img, 100);
+            UIImage* uiImage = [UIImage imageWithData:imageData, scale:imageData.scale, orientation:imageData.imageOrientation];
+            NSData* jpegImageData = UIImageJPEGRepresentation(uiImage, 1);
             [weakSelf success:command withData:jpegImageData];
          }];
     }];
