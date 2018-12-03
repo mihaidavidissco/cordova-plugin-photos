@@ -327,11 +327,22 @@ NSString* const E_PHOTO_BUSY = @"Fetching of photo assets is in progress";
                  [weakSelf failure:command withMessage:E_PHOTO_NO_DATA];
                  return;
              }
-            UIImage* uiImage = [UIImage imageWithData:imageData, scale:imageData.scale, orientation:imageData.imageOrientation];
-            NSData* jpegImageData = UIImageJPEGRepresentation(uiImage, 1);
+            UIImage* tempImage = [UIImage imageWithData:imageData];
+            UIImage* uiImage = [self removeRotationForImage:tempImage];
+            NSData* jpegImageData = UIImageJPEGRepresentation(uiImage, 1.0);
             [weakSelf success:command withData:jpegImageData];
          }];
     }];
+}
+
+- (UIImage *)removeRotationForImage:(UIImage*)image {
+    if (image.imageOrientation == UIImageOrientationUp) return image;
+    
+    UIGraphicsBeginImageContextWithOptions(image.size, NO, image.scale);
+    [image drawInRect:(CGRect){0, 0, image.size}];
+    UIImage *normalizedImage =  UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return normalizedImage;
 }
 
 - (void) cancel:(CDVInvokedUrlCommand*)command {
